@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Vagrant VM
+.vagrant
+
+# Ansible local roles
+roles

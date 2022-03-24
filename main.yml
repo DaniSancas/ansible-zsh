@@ -1,0 +1,47 @@
+---
+- name: Zsh setup
+  hosts: all
+
+  pre_tasks:
+    - name: Ensure fd-find and fzf are installed.
+      become: true
+      package:
+        name:
+          - fd-find
+          - fzf
+        state: present
+
+  roles:
+    - role: gantsign.antigen
+      users:
+        - username: "{{ hostvars[inventory_hostname]['ansible_user'] }}"
+          antigen_libraries:
+            - name: oh-my-zsh
+          antigen_theme:
+            name: half-life
+          antigen_bundles:
+            - name: git
+            - name: fzf
+            - name: zsh-autosuggestions
+              url: zsh-users/zsh-autosuggestions
+            - name: zsh-syntax-highlighting
+              url: zsh-users/zsh-syntax-highlighting
+
+  tasks:
+    - name: Add export FZF_DEFAULT_COMMAND line to ~/.antigenrc
+      lineinfile:
+        dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.antigenrc"
+        regexp: "^export FZF_DEFAULT_COMMAND"
+        line: export FZF_DEFAULT_COMMAND="fdfind --hidden --follow --exclude .git --exclude .idea"
+
+    - name: Add export FZF_CTRL_T_COMMAND line to ~/.antigenrc
+      lineinfile:
+        dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.antigenrc"
+        regexp: "^export FZF_CTRL_T_COMMAND"
+        line: export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND --type f"
+
+    - name: Add export FZF_ALT_C_COMMAND line to ~/.antigenrc
+      lineinfile:
+        dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.antigenrc"
+        regexp: "^export FZF_ALT_C_COMMAND"
+        line: export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"

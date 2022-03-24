@@ -1,0 +1,15 @@
+# pipenv shell
+# pipenv install
+
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+ansible = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
