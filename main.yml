@@ -28,6 +28,27 @@
               url: zsh-users/zsh-syntax-highlighting
 
   tasks:
+
+    # ZSH custom config
+    - name: Start comment for ZSH customizations on ~/.antigenrc
+      lineinfile:
+        dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.antigenrc"
+        regexp: "^# ZSH custom config$"
+        line: "# ZSH custom config"
+
+    - name: Bind Ctrl+U to 'Clear to beginning of line' behaviour on ~/.antigenrc
+      lineinfile:
+        dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.antigenrc"
+        regexp: "backward-kill-line$"
+        line: bindkey \^U backward-kill-line
+
+    # FZF custom config
+    - name: Start comment for FZF customizations on ~/.antigenrc
+      lineinfile:
+        dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.antigenrc"
+        regexp: "^# FZF custom config$"
+        line: "# FZF custom config"
+
     - name: Add export FZF_DEFAULT_COMMAND line to ~/.antigenrc
       lineinfile:
         dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.antigenrc"
