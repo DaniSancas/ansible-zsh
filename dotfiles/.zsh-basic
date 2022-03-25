@@ -1,0 +1,11 @@
+# WARNING Ansible auto-generated file
+# Don't overwrite or place your custom config here.
+# You can write your custom config on ~/.zsh-custom file
+
+# ZSH basic config
+bindkey \^U backward-kill-line
+
+# FZF basic config
+export FZF_DEFAULT_COMMAND="fdfind --hidden --follow --exclude .git --exclude .idea"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND --type f"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"

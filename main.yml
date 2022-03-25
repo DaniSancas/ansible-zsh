@@ -28,41 +28,32 @@
               url: zsh-users/zsh-syntax-highlighting
 
   tasks:
-
-    # ZSH custom config
-    - name: Start comment for ZSH customizations on ~/.antigenrc
+    # Copy dotfiles for basic and custom configs
+    - name: Copy ~/.zsh-basic file (replace if changed)
+      copy:
+        src: dotfiles/.zsh-basic
+        dest: /home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.zsh-basic
+        owner: "{{ hostvars[inventory_hostname]['ansible_user'] }}"
+        group: "{{ hostvars[inventory_hostname]['ansible_user'] }}"
+        mode: '0644'
+        backup: true
+    - name: Copy ~/.zsh-custom file (if not exists)
+      copy:
+        src: dotfiles/.zsh-custom
+        dest: /home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.zsh-custom
+        owner: "{{ hostvars[inventory_hostname]['ansible_user'] }}"
+        group: "{{ hostvars[inventory_hostname]['ansible_user'] }}"
+        mode: '0644'
+        force: false
+    
+    # Source dotfiles on ~/.zshrc
+    - name: Source ~/.zsh-basic on ~/.zshrc
       lineinfile:
-        dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.antigenrc"
-        regexp: "^# ZSH custom config$"
-        line: "# ZSH custom config"
-
-    - name: Bind Ctrl+U to 'Clear to beginning of line' behaviour on ~/.antigenrc
+        dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.zshrc"
+        regexp: "^source ~/.zsh-basic$"
+        line: "source ~/.zsh-basic"
+    - name: Source ~/.zsh-custom on ~/.zshrc
       lineinfile:
-        dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.antigenrc"
-        regexp: "backward-kill-line$"
-        line: bindkey \^U backward-kill-line
-
-    # FZF custom config
-    - name: Start comment for FZF customizations on ~/.antigenrc
-      lineinfile:
-        dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.antigenrc"
-        regexp: "^# FZF custom config$"
-        line: "# FZF custom config"
-
-    - name: Add export FZF_DEFAULT_COMMAND line to ~/.antigenrc
-      lineinfile:
-        dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.antigenrc"
-        regexp: "^export FZF_DEFAULT_COMMAND"
-        line: export FZF_DEFAULT_COMMAND="fdfind --hidden --follow --exclude .git --exclude .idea"
-
-    - name: Add export FZF_CTRL_T_COMMAND line to ~/.antigenrc
-      lineinfile:
-        dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.antigenrc"
-        regexp: "^export FZF_CTRL_T_COMMAND"
-        line: export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND --type f"
-
-    - name: Add export FZF_ALT_C_COMMAND line to ~/.antigenrc
-      lineinfile:
-        dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.antigenrc"
-        regexp: "^export FZF_ALT_C_COMMAND"
-        line: export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+        dest: "/home/{{ hostvars[inventory_hostname]['ansible_user'] }}/.zshrc"
+        regexp: "^source ~/.zsh-custom$"
+        line: "source ~/.zsh-custom"
