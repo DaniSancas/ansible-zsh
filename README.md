@@ -1,10 +1,18 @@
 # ansible-zsh
 Ansible ZSH recipe for multiple hosts and users.
 
-## Recommended requisites
+## Prerequisites
 
 - Python >=3.8
-- [Optional] Vagrant with VirtualBox
+- Ansible
+
+```sh
+sudo apt install python3.8 ansible
+```
+
+### Optional prerequisites
+
+- Vagrant with VirtualBox
 
 ## How to start
 
@@ -12,15 +20,6 @@ Clone this repo in a folder of your choice:
 
 ```sh
 git clone https://github.com/DaniSancas/ansible-zsh.git
-# or
-git clone git@github.com:DaniSancas/ansible-zsh.git
-```
-
-Initialize a pipenv shell and install the requirements:
-
-```sh
-pipenv shell
-pipenv install
 ```
 
 Install the Ansible roles used in this repo:
@@ -37,6 +36,6 @@ Modify the inventory file at will (it contains my home machines), and run agains
 # Run for all hosts
 ansible-playbook main.yml -i inventory
 
-# Run only for server group
-ansible-playbook main.yml --limit server -i inventory
+# Run only for a specific group, `laptop` in this case
+ansible-playbook main.yml --limit laptop -i inventory
 ```
