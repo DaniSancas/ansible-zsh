@@ -5,9 +5,9 @@ default: install execute
 install:
 	ansible-galaxy install -r requirements.yml
 
+EXECUTION=ansible-playbook main.yml -i inventory --limit local --extra-vars ansible_user=${USER}
 execute: 
-	ansible-playbook main.yml -i inventory --limit local --extra-vars ansible_user=${USER}
+	$(EXECUTION)
 
 execute-sudo: 
-	ansible-playbook main.yml -i inventory --limit local --extra-vars ansible_user=${USER} -b -K
-
+	$(EXECUTION) -b -K
