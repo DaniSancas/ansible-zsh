@@ -18,7 +18,7 @@
           antigen_libraries:
             - name: oh-my-zsh
           antigen_theme:
-            name: half-life
+            name: kolo
           antigen_bundles:
             - name: git
             - name: fzf
