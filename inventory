@@ -1,13 +1,5 @@
-[sandbox]
-vagrant		ansible_connection=local  ansible_port=2222 ansible_user=vagrant 
-
-[server]
-pi-2b		ansible_user=pi
-
-[laptop]
-localhost	ansible_connection=local ansible_user=dani
+[local]
+localhost	ansible_connection=local
 
 [all:children]
-sandbox
-server
-laptop
+local
