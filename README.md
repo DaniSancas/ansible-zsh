@@ -1,5 +1,5 @@
 # ansible-zsh
-Ansible ZSH recipe for multiple hosts and users.
+Ansible ZSH recipe for localhost current user.
 
 ## Prerequisites
 
@@ -10,10 +10,6 @@ Ansible ZSH recipe for multiple hosts and users.
 sudo apt install python3.8 ansible
 ```
 
-### Optional prerequisites
-
-- Vagrant with VirtualBox
-
 ## How to start
 
 Clone this repo in a folder of your choice:
@@ -22,20 +18,23 @@ Clone this repo in a folder of your choice:
 git clone https://github.com/DaniSancas/ansible-zsh.git
 ```
 
-Install the Ansible roles used in this repo:
+Install the Ansible roles and execute the recipe with a simple command:
 
 ```sh
-ansible-galaxy install -r requirements.yml
+make
 ```
 
-Modify the inventory file at will (it contains my home machines), and run against desired endpoints:
-
+In case you want/need it, you can execute step by step:
 ```sh
-# Examples:
+# Will run -> ansible-galaxy install -r requirements.yml
+make install
 
-# Run for all hosts
-ansible-playbook main.yml -i inventory
+# Will run -> ansible-playbook main.yml -i inventory --limit local --extra-vars ansible_user=${USER}
+make execute
+```
 
-# Run only for a specific group, `laptop` in this case
-ansible-playbook main.yml --limit laptop -i inventory
+If `make execute` doesn't work due to admin permissions, you can execute this alternative, which will ask for `sudo` password:
+```sh
+# Will run -> ansible-playbook main.yml -i inventory --limit local --extra-vars ansible_user=${USER} -b -K
+make execute-sudo
 ```
