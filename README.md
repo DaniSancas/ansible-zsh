@@ -10,6 +10,15 @@ Ansible ZSH recipe for localhost current user.
 sudo apt install python3.8 ansible
 ```
 
+### Optional prerequisites
+- pipenv
+
+So you can execute:
+```sh
+pipenv shell
+pipenv install
+```
+
 ## How to start
 
 Clone this repo in a folder of your choice:
