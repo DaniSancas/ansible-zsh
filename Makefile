@@ -1,13 +1,13 @@
-.PHONY: install exec exec-sudo
+.PHONY: install execute execute-sudo
 
-default: install exec
+default: install execute
 
 install:
-        ansible-galaxy install -r requirements.yml
+	ansible-galaxy install -r requirements.yml
 
-exec: 
-        ansible-playbook main.yml -i inventory --limit local --extra-vars ansible_user=${USER}
+execute: 
+	ansible-playbook main.yml -i inventory --limit local --extra-vars ansible_user=${USER}
 
-exec-sudo: 
-        ansible-playbook main.yml -i inventory --limit local --extra-vars ansible_user=${USER} -b -K
+execute-sudo: 
+	ansible-playbook main.yml -i inventory --limit local --extra-vars ansible_user=${USER} -b -K
 
